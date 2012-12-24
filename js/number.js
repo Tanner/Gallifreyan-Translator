@@ -19,7 +19,11 @@ function GNumber(number) {
 	}
 
 	this.draw = function(paper, x, y, radius) {
-		var num_circles = this.number.length + 1;
+		var num_circles = this.number.length;
+
+		if (this.decimal_position < 0) {
+			num_circles++;
+		}
 
 		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / num_circles;
 
