@@ -28,4 +28,7 @@ $(document).ready(function() {
 			path: path
 		};
 	};
+
+	var num = new GNumber(112);
+	num.draw(paper, paper.width / 2, paper.height / 2, paper.height / 3);
 });
