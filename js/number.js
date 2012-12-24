@@ -10,22 +10,36 @@ function GNumber(number) {
 		this.number = number.toString();
 	}
 
+	this.decimal_position = -1;
+
+	for (var i = 0; i < this.number.length; i++) {
+		if (this.number.charAt(i) == '.') {
+			this.decimal_position = i;
+		}
+	}
+
 	this.draw = function(paper, x, y, radius) {
-		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / this.number.length;
+		var num_circles = this.number.length + 1;
+
+		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / num_circles;
 
 		var current_radius = radius;
 
-		for (var i = 0; i < this.number.length; i++) {
+		for (var i = 0; i < num_circles; i++) {
 			if (this.number.charAt(i) == ',') {
 				continue;
 			}
 
 			var c = paper.circle(x, y, current_radius);
 
-			if (this.number.charAt(i) == '.') {
+			if (i == this.decimal_position) {
 				c.attr('stroke-width', BOLD_STROKE);
 			} else {
-				c.attr('stroke-width', STROKE);
+				if  (i == num_circles - 1 && this.decimal_position == -1) {
+					c.attr('stroke-width', BOLD_STROKE);
+				} else {
+					c.attr('stroke-width', STROKE);
+				}
 			}
 
 			current_radius -= spacing;
