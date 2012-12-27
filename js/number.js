@@ -4,12 +4,14 @@ function GNumber(number) {
 	const STROKE = 2;
 	const BOLD_STROKE = 4;
 
+	// Ensure the number we store is a string
 	if (!_.isNumber(number)) {
 		this.number = number;
 	} else {
 		this.number = number.toString();
 	}
 
+	// Detect the decimal position, if it exists within the string
 	this.decimal_position = -1;
 
 	for (var i = 0; i < this.number.length; i++) {
@@ -18,9 +20,12 @@ function GNumber(number) {
 		}
 	}
 
+	this.circles = [];
+
 	this.draw = function(paper, x, y, radius) {
 		var num_circles = this.number.length;
 
+		// If no decimal is present in the number, e.g. 10, then we need an extra circle
 		if (this.decimal_position < 0) {
 			num_circles++;
 		}
@@ -29,6 +34,7 @@ function GNumber(number) {
 
 		var current_radius = radius;
 
+		// Draw the circles for the number from the outside in
 		for (var i = 0; i < num_circles; i++) {
 			if (this.number.charAt(i) == ',') {
 				continue;
@@ -45,6 +51,8 @@ function GNumber(number) {
 					c.attr('stroke-width', STROKE);
 				}
 			}
+
+			this.circles.push(c);
 
 			current_radius -= spacing;
 		}
