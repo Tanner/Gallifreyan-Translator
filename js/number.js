@@ -28,6 +28,7 @@ function GNumber(number) {
 
 		var current_radius = radius;
 
+		// Draw all the rings
 		for (var i = 0; i < this.number.length; i++) {
 			var c = paper.circle(x, y, current_radius);
 			c.attr('stroke-width', STROKE);
@@ -60,6 +61,7 @@ function GNumber(number) {
 			}
 		}
 
+		// If no decimal was present, color the last ring's inner circle
 		if (!decimal_present) {
 			this.rings[this.rings.length - 1].inner_circle.attr('stroke-width', BOLD_STROKE);
 		}
