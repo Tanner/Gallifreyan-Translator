@@ -20,7 +20,7 @@ function GNumber(number) {
 		}
 	}
 
-	this.circles = [];
+	this.rings = [];
 
 	this.draw = function(paper, x, y, radius) {
 		var num_circles = this.number.length;
@@ -35,6 +35,8 @@ function GNumber(number) {
 		var current_radius = radius;
 
 		// Draw the circles for the number from the outside in
+		var outer_circle = null;
+		var number;
 		for (var i = 0; i < num_circles; i++) {
 			if (this.number.charAt(i) == ',') {
 				continue;
@@ -52,9 +54,22 @@ function GNumber(number) {
 				}
 			}
 
-			this.circles.push(c);
+			if (number == null) {
+				number = parseInt(this.number.charAt(i));
+			}
+
+			if (outer_circle != null) {
+				this.rings.push({
+					inner: c,
+					outer: outer_circle,
+					number: number
+				});
+			}
+
+			number = this.number.charAt(i) != '.' ? parseInt(this.number.charAt(i)) : null;
 
 			current_radius -= spacing;
+			outer_circle = c;
 		}
 	}
 }
