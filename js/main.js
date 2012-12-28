@@ -29,6 +29,9 @@ $(document).ready(function() {
 		};
 	};
 
-	var num = new GNumber(112);
-	num.draw(paper, paper.width / 2, paper.height / 2, paper.height / 3);
+	var num = new GNumber(152);
+	num.draw(paper, paper.width / 3, paper.height / 2, paper.height / 3);
+
+	var num = new GNumber(1.52);
+	num.draw(paper, paper.width * 2/3, paper.height / 2, paper.height / 3);
 });
