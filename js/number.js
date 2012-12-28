@@ -69,5 +69,22 @@ function GNumber(number) {
 		if (!decimal_present) {
 			this.rings[this.rings.length - 1].inner_circle.attr('stroke-width', BOLD_STROKE);
 		}
+
+		for (var i = 0; i < this.rings.length; i++) {
+			var ring = this.rings[i];
+
+			while (ring.number >= 5) {
+				var spacing = Math.abs(ring.inner_circle.attr('r') - ring.outer_circle.attr('r'));
+
+				var angle = Math.floor(Math.random() * 2 * Math.PI);
+
+				var x = ring.inner_circle.attr('cx') + Math.cos(angle) * (ring.outer_circle.attr('r') - spacing / 2);
+				var y = ring.inner_circle.attr('cy') - Math.sin(angle) * (ring.outer_circle.attr('r') - spacing / 2);
+
+				paper.circle(x, y, spacing / 2).attr('stroke-width', STROKE);
+
+				ring.number -= 5;
+			}
+		}
 	}
 }
