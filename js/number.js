@@ -42,8 +42,8 @@ function GNumber(number) {
 				ring.circle = c;
 				ring.number = parseInt(this.number.charAt(i));
 
-				if (this.rings.length == 0) {
-					// This is the outer ring, we must draw two circles
+				if (i == this.number.length - 1) {
+					// This is the inner ring, we must draw two circles
 					current_radius -= spacing;
 					
 					var c = paper.circle(x, y, current_radius);
