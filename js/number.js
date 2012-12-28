@@ -50,12 +50,18 @@ function GNumber(number) {
 					
 					var c = paper.circle(x, y, current_radius);
 					c.attr('stroke-width', STROKE);
+
+					ring.inner_circle = c;
 				}
 
 				this.rings.push(ring);
 
 				current_radius -= spacing;
 			}
+		}
+
+		if (!decimal_present) {
+			this.rings[this.rings.length - 1].inner_circle.attr('stroke-width', BOLD_STROKE);
 		}
 	}
 }
