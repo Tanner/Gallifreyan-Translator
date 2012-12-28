@@ -42,8 +42,12 @@ function GNumber(number) {
 				// Number
 				var ring = {};
 
-				ring.circle = c;
+				ring.outer_circle = c;
 				ring.number = parseInt(this.number.charAt(i));
+
+				if (this.rings.length > 0) {
+					this.rings[this.rings.length - 1].inner_circle = c;
+				}
 
 				if (i == this.number.length - 1) {
 					// This is the inner ring, we must draw two circles
