@@ -29,15 +29,17 @@ function GNumber(number) {
 		var current_radius = radius;
 
 		for (var i = 0; i < this.number.length; i++) {
+			var c = paper.circle(x, y, current_radius);
+			c.attr('stroke-width', STROKE);
+
 			if (this.number.charAt(i) == '.') {
 				// Decimal
 				decimal_present = true;
+
+				c.attr('stroke-width', BOLD_STROKE);
 			} else {
 				// Number
 				var ring = {};
-
-				var c = paper.circle(x, y, current_radius);
-				c.attr('stroke-width', STROKE);
 
 				ring.circle = c;
 				ring.number = parseInt(this.number.charAt(i));
