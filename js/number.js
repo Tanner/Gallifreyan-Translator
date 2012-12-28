@@ -14,7 +14,16 @@ function GNumber(number) {
 	this.rings = [];
 
 	this.draw = function(paper, x, y, radius) {
-		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / this.number.length;
+		var num_digits = 0;
+
+		for (var i = 0; i < this.number.length; i++) {
+			var charCode = this.number.charCodeAt(i);
+			if (charCode >= 48 && charCode <= 57) {
+				num_digits++;
+			}
+		}
+
+		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / num_digits;
 		var decimal_present = false;
 
 		var current_radius = radius;
