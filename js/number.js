@@ -89,50 +89,71 @@ function GNumber(number) {
 		}
 
 		// Draw the lines
-		for (var i = 0; i < this.rings.length; i++) {
-			var ring = this.rings[i];
+		var changes = false;
+		do {
+			changes = false;
 
-			while (ring.number >= 1) {
-				var angle = Math.random() * 2 * Math.PI;
+			for (var i = 0; i < this.rings.length; i++) {
+				var ring = this.rings[i];
 
-				var start = {
-					x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.outer_circle.attr('r'),
-					y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.outer_circle.attr('r')
-				}
+				if (ring.number >= 1) {
+					changes = true;
 
-				if (i == this.rings.length - 1) {
-					// This is the last ring
-					var end = {
-						x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.inner_circle.attr('r'),
-						y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.inner_circle.attr('r')
+					var angle = Math.random() * 2 * Math.PI;
+
+					var start = {
+						x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.outer_circle.attr('r'),
+						y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.outer_circle.attr('r')
 					}
 
-					paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
+					if (i == this.rings.length - 1) {
+						// This is the last ring
+						var end = {
+							x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.inner_circle.attr('r'),
+							y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.inner_circle.attr('r')
+						}
 
-					ring.number--;
-				} else {
-					for (var j = i + 1; j < this.rings.length; j++) {
-						var ring_b = this.rings[j];
+						paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
 
-						if (ring_b.number < 1 || j == this.rings.length - 1) {
-							// Final end
-							var end = {
-								x: ring_b.inner_circle.attr('cx') + Math.cos(angle) * ring_b.outer_circle.attr('r'),
-								y: ring_b.inner_circle.attr('cy') - Math.sin(angle) * ring_b.outer_circle.attr('r')
+						ring.number--;
+					} else {
+						for (var j = i + 1; j < this.rings.length; j++) {
+							var ring_b = this.rings[j];
+
+							console.log(ring_b.number, j, this.rings.length - 1);
+
+							if (ring_b.number < 1 || j == this.rings.length - 1) {
+								// Final end
+								if (ring_b.number < 1) {
+									end = {
+										x: ring_b.inner_circle.attr('cx') + Math.cos(angle) * ring_b.outer_circle.attr('r'),
+										y: ring_b.inner_circle.attr('cy') - Math.sin(angle) * ring_b.outer_circle.attr('r')
+									}
+
+									// Decrease all numbers between i and j
+									for (var k = i; k < j; k++) {
+										this.rings[k].number--;
+									}
+								} else if (j == this.rings.length - 1) {
+									var end = {
+										x: ring_b.inner_circle.attr('cx') + Math.cos(angle) * ring_b.inner_circle.attr('r'),
+										y: ring_b.inner_circle.attr('cy') - Math.sin(angle) * ring_b.inner_circle.attr('r')
+									}
+
+									// Decrease all numbers between i and j
+									for (var k = i; k <= j; k++) {
+										this.rings[k].number--;
+									}
+								}
+
+								paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
+
+								break;
 							}
-
-							paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
-
-							// Decrease all numbers between i and j
-							for (var k = i; k < j; k++) {
-								this.rings[k].number--;
-							}
-
-							break;
 						}
 					}
 				}
 			}
-		}
+		} while (changes);
 	}
 }

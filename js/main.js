@@ -29,7 +29,7 @@ $(document).ready(function() {
 		};
 	};
 
-	var num = new GNumber(152);
+	var num = new GNumber(162);
 	num.draw(paper, paper.width / 3, paper.height / 2, paper.height / 3);
 
 	var num = new GNumber(1.52);
