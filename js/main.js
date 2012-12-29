@@ -29,7 +29,7 @@ $(document).ready(function() {
 		};
 	};
 
-	$('input#text').on('keyup', function(e) {
+	$('input#text').on('input', function(e) {
 		paper.clear();
 
 		var text = $(this).val();
