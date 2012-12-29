@@ -120,8 +120,6 @@ function GNumber(number) {
 						for (var j = i + 1; j < this.rings.length; j++) {
 							var ring_b = this.rings[j];
 
-							console.log(ring_b.number, j, this.rings.length - 1);
-
 							if (ring_b.number < 1 || j == this.rings.length - 1) {
 								// Final end
 								if (ring_b.number < 1) {
