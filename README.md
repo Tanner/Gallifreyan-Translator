@@ -7,4 +7,5 @@ Based off of the language created by [Loren Sherman](http://www.shermansplanet.c
 
 Credit
 ------
+* [Raphael](http://raphaeljs.com/)
 * [Raphael.Export](https://github.com/ElbertF/Raphael.Export)
