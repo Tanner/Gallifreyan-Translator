@@ -24,7 +24,9 @@ function GNumber(number) {
 		}
 
 		var spacing = (radius - radius * SMALLEST_RADIUS_RATIO) / num_digits;
+
 		var decimal_present = false;
+		var negative = false;
 
 		var current_radius = radius;
 
@@ -38,6 +40,9 @@ function GNumber(number) {
 				decimal_present = true;
 
 				c.attr('stroke-width', BOLD_STROKE);
+			} else if (this.number.charAt(i) == '-') {
+				// Negative Number
+				negative = true;
 			} else {
 				// Number
 				var ring = {};
@@ -68,6 +73,27 @@ function GNumber(number) {
 		// If no decimal was present, color the last ring's inner circle
 		if (!decimal_present) {
 			this.rings[this.rings.length - 1].inner_circle.attr('stroke-width', BOLD_STROKE);
+		}
+
+		// Number is negative, so draw a line in the middle
+		if (negative) {
+			var ring = this.rings[this.rings.length - 1];
+
+			var angle = Math.random() * 2 * Math.PI;
+
+			var start = {
+				x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.inner_circle.attr('r'),
+				y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.inner_circle.attr('r')
+			}
+
+			angle += Math.PI;
+
+			var end = {
+				x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.inner_circle.attr('r'),
+				y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.inner_circle.attr('r')
+			}
+
+			paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
 		}
 
 		// Draw the circles
