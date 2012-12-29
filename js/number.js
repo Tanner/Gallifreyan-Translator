@@ -70,6 +70,7 @@ function GNumber(number) {
 			this.rings[this.rings.length - 1].inner_circle.attr('stroke-width', BOLD_STROKE);
 		}
 
+		// Draw the circles
 		for (var i = 0; i < this.rings.length; i++) {
 			var ring = this.rings[i];
 
@@ -84,6 +85,53 @@ function GNumber(number) {
 				paper.circle(x, y, spacing / 2).attr('stroke-width', STROKE);
 
 				ring.number -= 5;
+			}
+		}
+
+		// Draw the lines
+		for (var i = 0; i < this.rings.length; i++) {
+			var ring = this.rings[i];
+
+			while (ring.number >= 1) {
+				var angle = Math.random() * 2 * Math.PI;
+
+				var start = {
+					x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.outer_circle.attr('r'),
+					y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.outer_circle.attr('r')
+				}
+
+				if (i == this.rings.length - 1) {
+					// This is the last ring
+					var end = {
+						x: ring.inner_circle.attr('cx') + Math.cos(angle) * ring.inner_circle.attr('r'),
+						y: ring.inner_circle.attr('cy') - Math.sin(angle) * ring.inner_circle.attr('r')
+					}
+
+					paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
+
+					ring.number--;
+				} else {
+					for (var j = i + 1; j < this.rings.length; j++) {
+						var ring_b = this.rings[j];
+
+						if (ring_b.number < 1) {
+							// Final end
+							var end = {
+								x: ring_b.inner_circle.attr('cx') + Math.cos(angle) * ring_b.outer_circle.attr('r'),
+								y: ring_b.inner_circle.attr('cy') - Math.sin(angle) * ring_b.outer_circle.attr('r')
+							}
+
+							paper.path('M' + start.x + ',' + start.y + 'L' + end.x + ',' + end.y).attr('stroke-width', STROKE);
+
+							// Decrease all numbers between i and j
+							for (var k = i; k < j; k++) {
+								this.rings[k].number--;
+							}
+
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
