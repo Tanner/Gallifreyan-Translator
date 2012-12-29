@@ -29,6 +29,12 @@ $(document).ready(function() {
 		};
 	};
 
-	var num = new GNumber(162);
-	num.draw(paper, paper.width / 2, paper.height / 2, Math.min(paper.height * 0.45, paper.width * 0.45));
+	$('input#text').on('keyup', function(e) {
+		paper.clear();
+
+		var text = $(this).val();
+
+		var num = new GNumber(text);
+		num.draw(paper, paper.width / 2, paper.height / 2, Math.min(paper.height * 0.45, paper.width * 0.45));
+	});
 });
