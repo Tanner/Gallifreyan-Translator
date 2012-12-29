@@ -2,7 +2,7 @@ function GNumber(number) {
 	const SMALLEST_RADIUS_RATIO = 0.2;
 
 	const STROKE = 2;
-	const BOLD_STROKE = 4;
+	const BOLD_STROKE = 8;
 
 	// Ensure the number we store is a string
 	if (!_.isNumber(number)) {
