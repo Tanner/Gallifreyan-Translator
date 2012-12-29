@@ -30,8 +30,5 @@ $(document).ready(function() {
 	};
 
 	var num = new GNumber(162);
-	num.draw(paper, paper.width / 3, paper.height / 2, paper.height / 3);
-
-	var num = new GNumber(1.52);
-	num.draw(paper, paper.width * 2/3, paper.height / 2, paper.height / 3);
+	num.draw(paper, paper.width / 2, paper.height / 2, Math.min(paper.height * 0.45, paper.width * 0.45));
 });
