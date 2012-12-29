@@ -37,4 +37,12 @@ $(document).ready(function() {
 		var num = new GNumber(text);
 		num.draw(paper, paper.width / 2, paper.height / 2, Math.min(paper.height * 0.45, paper.width * 0.45));
 	});
+
+	$('button#export').on('click', function(e) {
+		e.preventDefault();
+
+		$('div.modal textarea').text(paper.toSVG());
+
+		$('div.modal').modal('show');
+	});
 });

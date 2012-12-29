@@ -32,3 +32,10 @@ body {
 	margin-bottom: 15px;
 	padding: 7px 9px;
 }
+
+.modal-body textarea {
+	box-sizing: border-box;
+
+	height: 300px;
+	width: 100%;
+}
