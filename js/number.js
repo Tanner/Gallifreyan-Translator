@@ -114,7 +114,7 @@ function GNumber(number) {
 					for (var j = i + 1; j < this.rings.length; j++) {
 						var ring_b = this.rings[j];
 
-						if (ring_b.number < 1) {
+						if (ring_b.number < 1 || j == this.rings.length - 1) {
 							// Final end
 							var end = {
 								x: ring_b.inner_circle.attr('cx') + Math.cos(angle) * ring_b.outer_circle.attr('r'),
